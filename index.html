@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Sweetie Treats 🍰</title>
+  <link rel="stylesheet" href="Dessert.css">
+</head>
+<body>  
+
+  <!-- Kursor foto (muncul setelah kamu pilih foto) -->
+  <div id="cur"></div>
+
+  <div class="frame">
+
+    <!-- ===== NAVIGASI ATAS ===== -->
+    <header>
+      <div class="tab">
+        <div class="logo" onclick="goSection('beranda')">🍓 Sweetie Treats</div>
+        <nav class="links" id="links">
+          <button class="lk on" data-s="beranda" onclick="goSection('beranda')">Beranda</button>
+          <button class="lk" data-s="menu" onclick="goSection('menu')">Menu</button>
+          <button class="lk" data-s="promo" onclick="goSection('promo')">Paket</button>
+          <button class="lk" data-s="testi" onclick="goSection('testi')">Ulasan</button>
+          <button class="lk" data-s="contact" onclick="goSection('contact')">Kontak</button>
+          <button class="lk" onclick="goCart()">Keranjang</button>
+          <span class="slider" id="slider"></span>
+        </nav>
+      </div>
+
+      <div class="right">
+        <div class="sb">
+          <input id="q" placeholder="Cari dessert..." onkeydown="if (event.key === 'Enter') search()">
+          <button onclick="search()">🔍</button>
+        </div>
+        <button class="ic" onclick="goCart()" title="Keranjang">🛒<sup id="cnt">0</sup></button>
+      </div>
+    </header>
+
+    <main>
+
+      <!-- ===== HALAMAN 1: BERANDA ===== -->
+      <div class="view on" id="home">
+        <section class="hero" id="beranda">
+        <div class="bl" style="width:230px; height:230px; background:var(--lav); left:-70px; bottom:-80px"></div>
+        <div class="bl" style="width:110px; height:110px; background:var(--mint); left:90px; bottom:-30px"></div>
+        <div class="bl" style="width:200px; height:200px; background:var(--pink2); right:-50px; bottom:-70px"></div>
+
+        <div class="hl">
+          <span class="badge">Buka 12 Jam</span>
+          <h1>Dessert Shop</h1>
+          <div class="sub2">MANIS &amp; SEGAR SETIAP HARI</div>
+          <p>
+            Kue, cupcake, donat &amp; dessert warna-warni yang bikin senyum seharian 💌
+          </p>
+
+          <div class="acts">
+            <button class="more" onclick="infoCara()">info lainnya</button>
+            <button class="btn big" onclick="goSection('menu')">Pesan Sekarang</button>
+          </div>
+
+          <div class="soc">
+            <span style="background:#4f6bed"></span>
+            <span style="background:#3ccf91"></span>
+            <span style="background:#4cb5f5"></span>
+            <span style="background:#e8559a"></span>
+          </div>
+        </div>
+
+        <div class="hr">
+          <div class="sp" style="width:70px; height:70px; background:var(--yel); top:10%; right:6%"></div>
+          <div class="sp" style="width:34px; height:34px; background:var(--mint); top:46%; left:2%"></div>
+          <div class="sp" style="width:22px; height:22px; background:var(--pink); top:8%; left:46%"></div>
+
+          <div class="p" style="font-size:clamp(3rem, 10vh, 5.5rem); top:6%; left:22%; animation-delay:.3s">🍩</div>
+          <div class="p" style="font-size:clamp(6rem, 20vh, 10rem); top:6%; left:50%; animation-delay:.9s">🥐</div>
+          <div class="p" style="font-size:clamp(7rem, 26vh, 12rem); top:34%; left:20%; animation-delay:1.5s">🎂</div>
+          <div class="p" style="font-size:clamp(4rem, 14vh, 7rem); top:56%; left:62%; animation-delay:2s">🧁</div>
+          <div class="p" style="font-size:clamp(3rem, 10vh, 5rem); top:66%; left:6%; animation-delay:.6s">🍰</div>
+        </div>
+        </section>
+
+        <!-- ===== MENU + KERANJANG (satu halaman) ===== -->
+        <section class="sec menu-sec" id="menu">
+        <div class="mleft">
+          <h2>Menu Manis 🍬</h2>
+          <p class="sub">Pilih dessert atau minuman favoritmu, masukkan ke keranjang!</p>
+          <div class="tabs">
+            <button class="on" data-t="dessert" onclick="setTab('dessert')">🍰 Dessert</button>
+            <button data-t="drink" onclick="setTab('drink')">🧋 Minuman</button>
+            <button data-t="best" onclick="setTab('best')">⭐ Terlaris</button>
+          </div>
+          <div class="grid" id="grid"></div>
+        </div>
+
+        <div class="cart" id="keranjang">
+          <!-- Kucing maskot: tersenyum saat dipencet, melompat saat ada yang masuk keranjang -->
+          <div class="kucing" id="kucing" title="Elus aku!">
+            <svg viewBox="0 0 120 92">
+              <path d="M24 40 L28 6 L54 26 Z" fill="#ffcfa8" stroke="#5a2d4a" stroke-width="3" stroke-linejoin="round"/>
+              <path d="M96 40 L92 6 L66 26 Z" fill="#ffcfa8" stroke="#5a2d4a" stroke-width="3" stroke-linejoin="round"/>
+              <path d="M32 30 L33 16 L44 25 Z" fill="#ff8fb8"/>
+              <path d="M88 30 L87 16 L76 25 Z" fill="#ff8fb8"/>
+              <ellipse cx="60" cy="54" rx="42" ry="32" fill="#ffcfa8" stroke="#5a2d4a" stroke-width="3"/>
+              <ellipse cx="36" cy="62" rx="7" ry="4.5" fill="#ff8fb8" opacity=".7"/>
+              <ellipse cx="84" cy="62" rx="7" ry="4.5" fill="#ff8fb8" opacity=".7"/>
+              <circle class="eye" cx="44" cy="52" r="5" fill="#5a2d4a"/>
+              <circle class="eye" cx="76" cy="52" r="5" fill="#5a2d4a"/>
+              <path class="eyeH" d="M38 54 Q44 46 50 54 M70 54 Q76 46 82 54" fill="none" stroke="#5a2d4a" stroke-width="3.5" stroke-linecap="round"/>
+              <path d="M56 60 L64 60 L60 65 Z" fill="#ff8fb8"/>
+              <path class="mouth" d="M54 69 Q60 72 66 69" fill="none" stroke="#5a2d4a" stroke-width="2.5" stroke-linecap="round"/>
+              <path class="mouthH" d="M52 67 Q60 80 68 67 Z" fill="#ff8fb8" stroke="#5a2d4a" stroke-width="2.5" stroke-linejoin="round"/>
+              <path d="M14 56 L30 59 M14 66 L30 64 M106 56 L90 59 M106 66 L90 64" stroke="#5a2d4a" stroke-width="2" stroke-linecap="round"/>
+            </svg>
+          </div>
+          <div class="cmsg" id="cmsg"></div>
+          <h2>🛒 Keranjang</h2>
+          <div id="items"></div>
+          <div class="total">Total: <span id="tot">Rp 0</span></div>
+          <button class="btn big" style="padding:10px; font-size:1.05rem" onclick="goCart()">
+            Lanjut Isi Data →
+          </button>
+        </div>
+        </section>
+
+        <!-- ===== PAKET SPESIAL (gaya voucher) ===== -->
+        <section class="sec" id="promo">
+          <div class="promo-head reveal">
+            <h1><span class="promo-gift">🎁</span> Paket Spesial</h1>
+            <p>Bingung pilih? Kami sudah siapkan kombinasi favorit. Tekan tombol + untuk memasukkan ke keranjang.</p>
+          </div>
+          <!-- Kartu voucher paket diisi otomatis oleh Dessert.js (bagian "Paket Spesial") -->
+          <div class="ptags reveal" id="paketList" style="--d:.1s"></div>
+        </section>
+        
+        <!-- ===== KENAPA PILIH KAMI (strip ringkas tepat di bawah menu) ===== -->
+        <section class="sec why-sec why-strip" id="why">
+          <h2 class="why-h reveal">Kenapa Harus Pilih Produk Kita?</h2>
+          <p class="sub reveal" style="--d:.1s">Empat alasan kenapa pelanggan kami selalu kembali</p>
+          <div class="why-grid">
+            <div class="why-card reveal" style="--d:0s"><span class="ic2">🍓</span><h3>Bahan Segar</h3><p>Dibuat setiap hari dari bahan pilihan, jadi rasanya segar dan tidak kemanisan.</p></div>
+            <div class="why-card reveal" style="--d:.12s"><span class="ic2">🎨</span><h3>Penampilan</h3><p>Tampilannya warna-warni dan bikin senang, cocok untuk hadiah dan perayaan.</p></div>
+            <div class="why-card reveal" style="--d:.24s"><span class="ic2">🚚</span><h3>Dikirim Cepat</h3><p>Pesananmu kami antar langsung ke alamat tujuan, tetap segar sampai di tangan.</p></div>
+            <div class="why-card reveal" style="--d:.36s"><span class="ic2">⏰</span><h3>Buka 12 Jam</h3><p>Mau pesan? Kami siap melayanimu selama 12 jam setiap hari.</p></div>
+          </div>
+        </section>
+        
+        <!-- ===== TENTANG TOKO KAMI ===== -->
+        <section class="sec about-sec" id="tentang">
+          <div class="about reveal">
+            <div class="about-pic">🧁</div>
+            <div class="about-text">
+              <h2>Tentang Toko Kami Sweetie Treats</h2>
+              <p>Sweetie Treats adalah toko dessert dan minuman manis yang lahir dari kecintaan pada hal-hal manis dan berwarna. Kami percaya satu gigitan manis bisa mengubah hari yang biasa jadi istimewa.</p>
+              <p>Semua kue, cupcake, donat, dan minuman kami dibuat dengan bahan pilihan dan penuh perhatian, dari dapur kecil kami untukmu dan orang-orang tersayang.</p>
+              <div class="stats">
+                <div><b id="statMenu">14</b>Pilihan menu</div>
+                <div><b>12 jam</b>Siap melayani</div>
+                <div><b>100%</b>Dibuat dengan cinta</div>
+              </div>
+            </div>
+          </div>
+        </section>
+        <!-- ===== KOMENTAR PELANGGAN (slider + form) ===== -->
+        <section class="sec" id="testi">
+          <h2 class="reveal">Kata Pelanggan Kami 💬</h2>
+          <p class="sub reveal" style="--d:.1s">Cerita manis dari mereka yang sudah mencoba</p>
+
+          <div class="tslider reveal" id="tSlider">
+            <button class="tarrow" id="tPrev" aria-label="Komentar sebelumnya">‹</button>
+            <div class="tview"><div class="ttrack" id="tTrack"></div></div>
+            <button class="tarrow" id="tNext" aria-label="Komentar berikutnya">›</button>
+          </div>
+          <div class="tdots" id="tDots"></div>
+
+          <form class="tform reveal" id="tForm">
+            <div class="tform-head">✏️ Tulis komentarmu</div>
+
+            <label class="t-nama">Nama
+              <input id="tNama" maxlength="30" placeholder="Siapa namamu?" required autocomplete="name">
+            </label>
+
+            <div class="tgroup t-avatar">Pilih avatar
+              <div class="tav">
+                <label><input type="radio" name="tAv" value="😊" checked><span>😊</span></label>
+                <label><input type="radio" name="tAv" value="👩"><span>👩</span></label>
+                <label><input type="radio" name="tAv" value="🧑"><span>🧑</span></label>
+                <label><input type="radio" name="tAv" value="👧"><span>👧</span></label>
+                <label><input type="radio" name="tAv" value="👦"><span>👦</span></label>
+                <label><input type="radio" name="tAv" value="🐱"><span>🐱</span></label>
+              </div>
+            </div>
+
+            <div class="tgroup t-bintang">Beri bintang
+              <div class="tstars" id="tStars" role="radiogroup" aria-label="Beri bintang">
+                <button type="button" class="tstar on" data-v="1" aria-label="1 bintang">★</button>
+                <button type="button" class="tstar on" data-v="2" aria-label="2 bintang">★</button>
+                <button type="button" class="tstar on" data-v="3" aria-label="3 bintang">★</button>
+                <button type="button" class="tstar on" data-v="4" aria-label="4 bintang">★</button>
+                <button type="button" class="tstar on" data-v="5" aria-label="5 bintang">★</button>
+              </div>
+            </div>
+
+            <label class="t-isi">Komentar
+              <textarea id="tIsi" rows="3" maxlength="200" placeholder="Ceritakan pengalamanmu... " required></textarea>
+            </label>
+
+            <button type="submit" class="btn big t-kirim">Kirim Komentar </button>
+            <p class="tnote" id="tNote" role="status"></p>
+          </form>
+        </section>
+
+        <!-- ===== KONTAK (paling bawah) ===== -->
+        <section class="sec" id="contact">
+          <div class="cbox reveal">
+          <div class="cplane reveal from-left">
+            <svg viewBox="0 0 220 180" width="100%">
+              <circle cx="110" cy="100" r="62" fill="#fde6df"/>
+              <circle cx="50" cy="30" r="14" fill="#fde6df"/>
+              <path d="M20 80 L190 24 L124 150 L100 100 Z" fill="#f9a98b" stroke="#444" stroke-width="5" stroke-linejoin="round"/>
+              <path d="M100 100 L190 24 M100 100 L112 138" stroke="#444" stroke-width="5" stroke-linecap="round" fill="none"/>
+              <path d="M30 120 L52 108 M20 142 L56 124 M60 156 L80 146" stroke="#444" stroke-width="5" stroke-linecap="round"/>
+            </svg>
+          </div>
+          <div class="cright reveal from-right">
+            <h2>Hubungi Kami</h2>
+            <p class="sub">Klik untuk chat atau lihat media sosial kami!</p>
+            <a class="crow" target="_blank"><i style="background:#25d366">WA</i><span>WhatsApp<small>0812-3456-7890</small></span></a>
+            <a class="crow" target="_blank"><i style="background:linear-gradient(135deg,#f58529,#dd2a7b,#8134af)">IG</i><span>Instagram<small>@sweetietreats</small></span></a>
+            <a class="crow" target="_blank"><i style="background:#222">TT</i><span>TikTok<small>@sweetietreats</small></span></a>
+            <div class="crow"><i style="background:#ff8f6b">📍</i><span>Alamat<small>Jl. Manis No. 1</small></span></div>
+            <div class="crow"><i style="background:#b07cf5">🕒</i><span>Jam Buka<small>Buka dari jam 08.00-20.00</small></span></div>
+          </div>
+        </div>
+        </section>
+      
+        <!-- ===== FOOTER ===== -->
+        <footer class="foot">
+          <div class="foot-grid">
+            <div class="foot-brand">
+              <div class="foot-logo">🍓 Sweetie Treats</div>
+              <p>Dessert &amp; minuman manis yang dibuat dengan cinta, biar harimu makin berwarna.</p>
+              <div class="foot-soc">
+                <a target="_blank" title="Instagram"></a>
+                <a target="_blank" title="WhatsApp"></a>
+                <a target="_blank" title="TikTok"></a>
+              </div>
+            </div>
+
+            <div>
+              <h4>Jelajahi</h4>
+              <a href="#" onclick="goSection('beranda'); return false">Beranda</a>
+              <a href="#" onclick="goSection('menu'); return false">Menu</a>
+              <a href="#" onclick="goSection('promo'); return false">Paket</a>
+              <a href="#" onclick="goSection('testi'); return false">Ulasan</a>
+              <a href="#" onclick="goSection('contact'); return false">Kontak</a>
+            </div>
+
+            <div>
+              <h4>Menu Favorit</h4>
+              <a href="#" onclick="setTab('dessert'); goSection('menu'); return false">🍰 Dessert</a>
+              <a href="#" onclick="setTab('drink'); goSection('menu'); return false">🧋 Minuman</a>
+              <a href="#" onclick="setTab('best'); goSection('menu'); return false">⭐ Terlaris</a>
+            </div>
+
+            <div>
+              <h4>Hubungi Kami</h4>
+              <span class="fl">💬 0812-3456-7890</span>
+              <span class="fl">📍 Jl. Manis No. 1</span>
+              <span class="fl">🕒 Buka 08.00-20.00</span>
+            </div>
+          </div>
+
+          <div class="foot-bottom">
+            <span>© <span id="thn">2026</span> Sweetie Treats. Dibuat dengan 🍰 dan cinta.</span>
+            <a href="#" onclick="goSection('beranda'); return false">↑ Kembali ke atas</a>
+          </div>
+        </footer>
+      </div>
+
+    </main>
+  </div>
+
+  <!-- ===== POP-UP: DATA PENGIRIMAN ===== -->
+  <div class="modal" id="checkout" onclick="if (event.target === this) closeModal()">
+    <button class="mclose" onclick="closeModal()" title="Tutup">✕</button>
+    <div class="mbox">
+        <form id="f">
+          <h2>Data Pengiriman 🎀</h2>
+
+          <label>Nama Pembeli
+            <input id="nama" required placeholder="Nama kamu">
+          </label>
+
+          <label>Alamat Tujuan
+            <input id="alamat" required placeholder="Alamat pengiriman">
+          </label>
+
+          <button class="btn big" type="submit">Kirim Pesanan 🎁</button>
+        </form>
+
+        <div class="sum">
+          <h2>Pesananmu</h2>
+          <div id="sumItems"></div>
+          <div class="total">Total: <span id="tot2">Rp 0</span></div>
+        </div>
+    </div>
+  </div>
+
+  <!-- ===== POP-UP: TERIMA KASIH ===== -->
+  <div class="modal" id="thanks" onclick="if (event.target === this) closeModal()">
+    <div class="mbox thanks">
+        <div style="font-size:4.5rem">🎉</div>
+        <h2 id="tMsg"></h2>
+        <button class="btn big" onclick="closeModal(); goSection('beranda')">Kembali ke Beranda</button>
+    </div>
+  </div>
+
+  <!-- Bar keranjang melayang: hanya muncul di HP, di halaman menu -->
+  <div class="cartbar" id="cartbar" onclick="goCart()">
+    <span>🛒 <span id="cbCnt">0</span> item · <span id="cbTot">Rp 0</span></span>
+    <span>Lanjut →</span>
+  </div>
+
+  <script src="Dessert.js"></script>
+  <script src="struk.js"></script>
+</body>
+</html>
